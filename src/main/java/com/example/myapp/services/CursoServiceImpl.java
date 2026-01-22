@@ -3,12 +3,14 @@ package com.example.myapp.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.example.myapp.Repository.CursoRepository;
 import com.example.myapp.domain.Curso;
+import com.example.myapp.dto.CursoDto;
 
 @Service
 @Primary
@@ -16,6 +18,9 @@ public class CursoServiceImpl implements CursoService {
 
     @Autowired
     private CursoRepository repositorio;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @Override
@@ -106,5 +111,19 @@ public class CursoServiceImpl implements CursoService {
     @Override
     public List<Curso> obtenerCursoPrecioMenor(double precio){
         return repositorio.findByPrecioLessThan(precio);
+    }
+
+    @Override
+    public List<CursoDto> convertCursoToDto(List<Curso> listaCursos) {
+       List<CursoDto> listaCursoDto = new ArrayList<>();
+
+       for(Curso curso : listaCursos){
+            listaCursoDto.add(modelMapper.map(curso, CursoDto.class));
+       }
+
+       return listaCursoDto;
+
+
+
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.myapp.domain.Curso;
 import com.example.myapp.domain.Tematica;
+import com.example.myapp.dto.CursoDto;
 import com.example.myapp.services.AutorService;
 import com.example.myapp.services.CursoService;
 
@@ -33,7 +34,11 @@ public class CursosController {
 
     @GetMapping({ "/", "/list" })
     public String showList(Model model) {
-        model.addAttribute("listaCursos", cursoService.obtenerTodos());
+
+        List<Curso> listaCursos = cursoService.obtenerTodos();
+        List <CursoDto> listaDto = cursoService.convertCursoToDto(listaCursos);
+
+        model.addAttribute("listaCursos", listaDto);
         if (txtMsg != null) {
             model.addAttribute("msg", txtMsg);
             txtMsg = null;

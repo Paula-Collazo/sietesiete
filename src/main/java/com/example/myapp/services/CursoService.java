@@ -3,6 +3,7 @@ package com.example.myapp.services;
 import java.util.List;
 
 import com.example.myapp.domain.Curso;
+import com.example.myapp.dto.CursoDto;
 
 
 public interface CursoService {
@@ -21,6 +22,8 @@ public interface CursoService {
     List<Curso> buscarPorNombreYTematica(String nombre, com.example.myapp.domain.Tematica tematica);
 
     List<Curso> obtenerCursoPrecioMenor (double precio);
+
+    List<CursoDto> convertCursoToDto (List<Curso> listaCursosDto);
 
     
 
